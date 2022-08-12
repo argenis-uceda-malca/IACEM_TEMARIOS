@@ -4,6 +4,8 @@ namespace Controllers;
 
 use MVC\Router;
 use Model\Usuario;
+use Model\Ciclo;
+use Model\Cursos;
 
 class ColaboradoresController
 {
@@ -13,13 +15,17 @@ class ColaboradoresController
         session_start();
         isAuth();
 
+        $ciclos = Ciclo::all();
+        $cursos = Cursos::all();
+
         $colaboradores = Usuario::all();
 
         //debuguear($colaboradores);
 
         $router->renderAdmin('home/viewColaboradores',  [
             'colaboradores' => $colaboradores,
-
+            'ciclos' => $ciclos,
+            'cursos' => $cursos,
         ]);
     }
 

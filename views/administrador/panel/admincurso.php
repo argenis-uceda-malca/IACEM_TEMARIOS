@@ -24,15 +24,17 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                             <h4 class="card-title">Administrar cursos</h4>
                             <div class="ml-auto">
                                 <div class="dropdown sub-dropdown">
-                                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-success" data-toggle="modal" data-target="#myModalNuevaCurso"><i class="fas fa-plus"></i> Agregar Nuevo</button>
-                                    <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i data-feather="more-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
-                                        <a class="dropdown-item" href="#">Insert</a>
-                                        <a class="dropdown-item" href="#">Update</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
+                                    <?php if (isset($_SESSION['admin'])) { ?>
+                                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-success" data-toggle="modal" data-target="#myModalNuevaCurso"><i class="fas fa-plus"></i> Agregar Nuevo</button>
+                                        <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
+                                            <a class="dropdown-item" href="#">Insert</a>
+                                            <a class="dropdown-item" href="#">Update</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -52,22 +54,23 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                                 </thead>
                                 <tbody>
                                     <?php foreach ($cursos as $key => $curso) {
-                                        
-                                        if($curso->idCiclo == $_GET['ciclo']){?>
-                                        <tr>
-                                            <td class="border-top-0 text-center font-weight-medium text-muted px-2 py-4"><?php echo $curso->id; ?>
-                                            </td>
-                                            <td class="border-top-0  font-weight-medium text-muted px-2 py-4"><?php echo $curso->nombre; ?></td>
 
-                                            <td class="border-top-0 text-center px-2 py-4">
-                                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-secondary editbtnCiclo" data-toggle="modal" data-target="#myModalcurso"><i class="fa fa-edit"></i></button>
-                                            </td>
-                                            <td class="border-top-0 text-center px-2 py-4">
-                                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-danger eliminartbtnCurso" data-id="<?php echo $curso->id ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                            </td>
-
-                                        </tr>
-                                    <?php } }?>
+                                        if ($curso->idCiclo == $_GET['ciclo']) { ?>
+                                            <tr>
+                                                <td class="border-top-0 text-center font-weight-medium text-muted px-2 py-4"><?php echo $curso->id; ?>
+                                                </td>
+                                                <td class="border-top-0  font-weight-medium text-muted px-2 py-4"><?php echo $curso->nombre; ?></td>
+                                                <?php if (isset($_SESSION['admin'])) { ?>
+                                                    <td class="border-top-0 text-center px-2 py-4">
+                                                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-secondary editbtnCiclo" data-toggle="modal" data-target="#myModalcurso"><i class="fa fa-edit"></i></button>
+                                                    </td>
+                                                    <td class="border-top-0 text-center px-2 py-4">
+                                                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-danger eliminartbtnCurso" data-id="<?php echo $curso->id ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </td>
+                                                <?php } ?>
+                                            </tr>
+                                    <?php }
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -143,8 +146,8 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                             </div>
                             <div class="form-actions">
                                 <div class="text-right">
-                                <?php echo $_GET['ciclo'] ?>
-                                    <input type="hidden" name="idCiclo" value="<?php echo $_GET['ciclo'] ?>" >
+                                    <?php echo $_GET['ciclo'] ?>
+                                    <input type="hidden" name="idCiclo" value="<?php echo $_GET['ciclo'] ?>">
                                     <button type="submit" class="btn btn-info">Guardar</button>
                                     <button type="reset" class="btn btn-dark">Cancelar</button>
                                 </div>

@@ -23,17 +23,19 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                         <div class="d-flex align-items-center mb-4">
                             <h4 class="card-title">Lista de Marcas de productos</h4>
                             <div class="ml-auto">
-                                <div class="dropdown sub-dropdown">
-                                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-success" data-toggle="modal" data-target="#myModalNuevaTema"><i class="fas fa-plus"></i> Agregar Tema</button>
-                                    <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i data-feather="more-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
-                                        <a class="dropdown-item" href="#">Insert</a>
-                                        <a class="dropdown-item" href="#">Update</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
+                                <?php if (isset($_SESSION['admin'])) { ?>
+                                    <div class="dropdown sub-dropdown">
+                                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-success" data-toggle="modal" data-target="#myModalNuevaTema"><i class="fas fa-plus"></i> Agregar Tema</button>
+                                        <button class="btn btn-link text-muted dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
+                                            <a class="dropdown-item" href="#">Insert</a>
+                                            <a class="dropdown-item" href="#">Update</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -53,19 +55,19 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                                 <tbody>
                                     <?php foreach ($temas as $key => $tema) {
                                         $idcurso = $tema->idcurso;
-                                        ?>
+                                    ?>
                                         <tr>
                                             <td class="border-top-0 text-center font-weight-medium text-muted px-2 py-4"><?php echo $tema->id; ?>
                                             </td>
                                             <td class="border-top-0 text-center font-weight-medium text-muted px-2 py-4"><?php echo $tema->nombre; ?></td>
-
-                                            <td class="border-top-0 text-center px-2 py-4">
-                                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-secondary editbtnTema" data-toggle="modal" data-target="#myModalTema" data-id="<?php echo $tema->id ?>"><i class="fa fa-edit"></i></button>
-                                            </td>
-                                            <td class="border-top-0 text-center px-2 py-4">
-                                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-danger eliminartbtnTema" data-id="<?php echo $tema->id ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                            </td>
-
+                                            <?php if (isset($_SESSION['admin'])) { ?>
+                                                <td class="border-top-0 text-center px-2 py-4">
+                                                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-secondary editbtnTema" data-toggle="modal" data-target="#myModalTema" data-id="<?php echo $tema->id ?>"><i class="fa fa-edit"></i></button>
+                                                </td>
+                                                <td class="border-top-0 text-center px-2 py-4">
+                                                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-outline-danger eliminartbtnTema" data-id="<?php echo $tema->id ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </td>
+                                            <?php } ?>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -142,7 +144,7 @@ include_once __DIR__ . '/../../templates/administrador/sidebar.php';
                             </div>
                             <div class="form-actions">
                                 <div class="text-right">
-                                    <input type="hidden" name="idcurso" value="<?php echo $_GET['curso']?>" >
+                                    <input type="hidden" name="idcurso" value="<?php echo $_GET['curso'] ?>">
                                     <button type="submit" class="btn btn-info">Guardar</button>
                                     <button type="reset" class="btn btn-dark">Cancelar</button>
                                 </div>
